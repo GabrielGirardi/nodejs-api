@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect('mongodb+srv://devggirardi:MrWthRKqAO6QaKl4@api-node.hkdhyoa.mongodb.net/?retryWrites=true&w=majority');
 const port = 3000;
@@ -11,6 +13,7 @@ const Costumer = mongoose.model('Costumer', {
     name: String,
     birth: { type: Date, default: Date.now },
     gender: String,
+    status: String,
     cep: Number,
     address: String,
     number: Number,
@@ -35,6 +38,7 @@ app.put('/:id', async (req, res) => {
         name: req.body.name,
         birth: req.body.birth,
         gender: req.body.gender,
+        status: req.body.status,
         cep: req.body.cep,
         address: req.body.address,
         number: req.body.number,
@@ -51,6 +55,7 @@ app.post('/', async (req, res) => {
         name: req.body.name,
         birth: req.body.birth,
         gender: req.body.gender,
+        status: req.body.status,
         cep: req.body.cep,
         address: req.body.address,
         number: req.body.number,
