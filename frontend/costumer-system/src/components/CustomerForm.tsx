@@ -72,6 +72,34 @@ const CustomerForm = () => {
         }
     };
 
+    const handleCancel = () => {
+        Swal.fire({
+            title: 'Cancelar Cadastro',
+            text: 'Você realmente deseja cancelar o cadastro? todo o progresso será perdido!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#000',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setFormData({
+                    name: '',
+                    gender: '',
+                    status: '',
+                    birth: '',
+                    cep: '',
+                    address: '',
+                    number: '',
+                    complement: '',
+                    state: '',
+                    city: ''
+                });
+            }
+        })
+    }
+
     return (
         <form className="flex flex-wrap w-full" onSubmit={handleSubmit}>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
@@ -80,7 +108,7 @@ const CustomerForm = () => {
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="gender">Gênero</label>
-                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" name="gender" id="gender" value={formData.gender} onChange={handleChange} required>
+                <select className="w-2/3 ml-4 h-9 rounded-md px-4 bg-white border" name="gender" id="gender" value={formData.gender} onChange={handleChange} required>
                     <option value="">Selecione uma opção</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
@@ -142,7 +170,7 @@ const CustomerForm = () => {
                 </Button> 
             </div>
             <div className="flex justify-start w-1/2 mt-4">
-                <Button className="w-2/3 h-12 ml-4 bg-red-500 hover:bg-red-600">
+                <Button className="w-2/3 h-12 ml-4 bg-red-500 hover:bg-red-600" type="button" onClick={handleCancel}>
                     Cancelar
                 </Button>
             </div>
