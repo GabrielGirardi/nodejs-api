@@ -1,103 +1,174 @@
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
-interface CustomerEditProps {
-    name: string;
-    gender: string;
-    status: string;
-    birth: string;
-    cep: string;
-    address: string;
-    number: string;
-    complement: string;
-    state: string;
-    city: string;
-}
+const CustomerEdit = () => {
+    const [customers, setCustomers] = useState([]);
 
-const CustomerEdit: React.FC<CustomerEditProps> = ({
-    name,
-    gender,
-    status,
-    birth,
-    cep,
-    address,
-    number,
-    complement,
-    state,
-    city,
-}) => {
-    return (
-        <form className="flex flex-wrap w-full">
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="name">Nome Completo</label>
-                <Input className="w-2/3 mr-4" type="text" value={name}/>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
-                <label className="w-2/3 ml-4" htmlFor="gender">Gênero</label>
-                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" value={gender}>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
-                    <option value="Outro">Outro</option>
-                </select>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="status">Estado Civil</label>
-                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" value={status}>
-                        <option value="Solteiro">Solteiro</option>
-                        <option value="Casado">Casado</option>
-                        <option value="Divorciado">Divorciado</option>
-                        <option value="Viúvo">Viúvo</option>
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/');
+
+            setCustomers(response.data);
+        } catch (error) {
+            console.log(error);
+
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Ocorreu um erro ao buscar os clientes.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    };
+
+    const handleEditCustomer = async (customer) => {
+        const birthDate = new Date(customer.birth).toISOString().split('T')[0];
+
+        const { value: formValues } = await Swal.fire({
+            title: 'Edição de cliente',
+            html: `
+                <div class="content-edit-form">
+                    <input type="text" id="nameEdit" value="${customer.name}" class="swal2-input" placeholder="Nome Completo" required>
+                    <select id="genderEdit" class="swal2-select" required>
+                        <option value="${customer.gender}">${customer.gender} - Anterior</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
                         <option value="Outro">Outro</option>
-                </select>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
-                <label className="w-2/3 ml-4" htmlFor="birth">
-                    Data de Nascimento <span className="text-xs font-thin italic">(DD/MM/YY)</span>
-                </label>
-                <Input type="date" className="w-2/3 ml-4" value={birth}/>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="cep">CEP</label>
-                <Input className="w-2/3 mr-4" type="text" value={cep}/>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
-                <label className="w-2/3 ml-4" htmlFor="address">Endereço</label>
-                <Input className="w-2/3 ml-4" type="text" value={address}/>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="number">Número</label>
-                <Input className="w-2/3 mr-4" type="number"value={number}/>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
-                <label className="w-2/3 ml-4" htmlFor="complement">Complemento</label>
-                <Input className="w-2/3 ml-4" type="text" value={complement} />
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="state">Estado</label>
-                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" value={state}>
+                    </select>
+                    <select id="statusEdit" class="swal2-select" required>
+                        <option value="${customer.status}">${customer.status} - Anterior</option>
+                        <option value="Solteiro(a)">Solteiro(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viúvo(a)">Viúvo(a)</option>
+                    </select>
+                    <input type="date" id="birthEdit" value="${birthDate}" class="swal2-input" placeholder="Data de Nascimento" required>
+                    <input type="text" id="cepEdit" value="${customer.cep}" class="swal2-input" placeholder="CEP" required>
+                    <input type="text" id="addressEdit" value="${customer.address}" class="swal2-input" placeholder="Endereço" required>
+                    <input type="number" id="numberEdit" value="${customer.number}" class="swal2-input" placeholder="Número">
+                    <input type="text" id="complementEdit" value="${customer.complement}" class="swal2-input" placeholder="Complemento" required>
+                    <input type="text" id="districtEdit" value="${customer.district}" class="swal2-input" placeholder="Estado" required>
+                    <select id="districtEdit" class="swal2-select" required>
+                        <option value="${customer.district}">${customer.district} - Anterior</option>
                         <option value="SP">SP</option>
                         <option value="RJ">RJ</option>
                         <option value="MG">MG</option>
                         <option value="RS">RS</option>
                         <option value="SC">SC</option>
-                </select>
-            </div>
-            <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
-                <label className="w-2/3 ml-4" htmlFor="city">Cidade</label>
-                <Input className="w-2/3 ml-4" type="text" value={city}/>
-            </div>
-            <div className="flex justify-end w-1/2 mt-4">
-                <Button className="w-2/3 h-12 mr-4 bg-green-500 hover:bg-green-600" type="submit">
-                    Salvar
-                </Button> 
-            </div>
-            <div className="flex justify-start w-1/2 mt-4">
-                <Button className="w-2/3 h-12 ml-4 bg-red-500 hover:bg-red-600">
-                    Cancelar
-                </Button>
-            </div>
-        </form>
+                    </select>
+                    <input type="text" id="cityEdit" value="${customer.city}" class="swal2-input" placeholder="Cidade" required>
+                </div>
+            `,
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: 'Salvar',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#38d500',
+            cancelButtonColor: '#d33',
+            preConfirm: () => {
+                return {
+                    name: document.getElementById('nameEdit').value,
+                    gender: document.getElementById('genderEdit').value,
+                    status: document.getElementById('statusEdit').value,
+                    birth: document.getElementById('birthEdit').value,
+                    cep: document.getElementById('cepEdit').value,
+                    address: document.getElementById('addressEdit').value,
+                    number: document.getElementById('numberEdit').value,
+                    complement: document.getElementById('complementEdit').value,
+                    district: document.getElementById('districtEdit').value,
+                    city: document.getElementById('cityEdit').value,
+                }
+            },
+            customClass: {
+                container: 'content-edit',
+            }
+        });
+
+        if (formValues) {
+            try {
+                await axios.put(`http://localhost:3000/${customer._id}`, formValues);
+
+                Swal.fire({
+                    title: 'Cliente Editado!',
+                    text: 'As alterações foram salvas com sucesso.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                
+                fetchData(); 
+            } catch (error) {
+                console.log(error);
+
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Ocorreu um erro ao editar o cliente.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        } else {
+            Swal.fire({
+                title: 'Alteração não realizada',
+                text: 'Parece que a operação foi cancelada',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
+        }
+    };
+
+    const formatDate = (dateString? : number) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString();
+
+        return `${day}/${month}/${year}`;
+    };
+
+    return (
+        <div className="bg-white rounded-sm shadow p-6">
+            <table className="border-collapse"> 
+                <thead className="font-bold text-sm">
+                    <tr>
+                        <th className="text-start">Nome</th>
+                        <th className="text-start">Gênero</th>
+                        <th className="text-start">Cônjuge</th>
+                        <th className="text-start">Nascimento</th>
+                        <th className="text-start">CEP</th>
+                        <th className="text-start">Endereço</th>
+                        <th className="text-center">Nº</th>
+                        <th className="text-start">Complemento</th>
+                        <th className="text-center">UF</th>
+                        <th className="text-start">Cidade</th>
+                        <th className="text-start">Ações</th>
+                    </tr>
+                </thead>
+                <tbody className="text-sm">
+                    {customers.map((customer, index) => (
+                        <tr className="border-b" key={index}>
+                            <td className="w-2/12 h-10 overflow-hidden">{customer.name}</td>
+                            <td className="w-1/12 h-10 overflow-hidden">{customer.gender}</td>
+                            <td className="w-1/12 h-10 overflow-hidden">{customer.status}</td>
+                            <td className="w-1/12 h-10 overflow-hidden">{formatDate(customer.birth)}</td>
+                            <td className="w-1/12 h-10 overflow-hidden">{customer.cep}</td>
+                            <td className="w-2/12 h-10 overflow-hidden">{customer.address}</td>
+                            <td className="w-1/12 h-10 overflow-hidden text-center">{customer.number}</td>
+                            <td className="w-1/12 h-10 overflow-scroll">{customer.complement}</td>
+                            <td className="w-1/12 h-10 overflow-hidden text-center">{customer.district}</td>
+                            <td className="w-1/12 h-10 overflow-hidden">{customer.city}</td>
+                            <td>
+                                <button onClick={() => handleEditCustomer(customer)}>Editar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 };
 

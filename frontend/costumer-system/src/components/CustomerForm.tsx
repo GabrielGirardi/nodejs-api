@@ -15,7 +15,7 @@ const CustomerForm = () => {
         address: '',
         number: '',
         complement: '',
-        state: '',
+        district: '',
         city: ''
     });
 
@@ -93,7 +93,7 @@ const CustomerForm = () => {
                     address: '',
                     number: '',
                     complement: '',
-                    state: '',
+                    district: '',
                     city: ''
                 });
             }
@@ -101,7 +101,7 @@ const CustomerForm = () => {
     }
 
     return (
-        <form className="flex flex-wrap w-full" onSubmit={handleSubmit}>
+        <form className="flex flex-wrap w-full text-sm" onSubmit={handleSubmit}>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
                 <label className="w-2/3 mr-4" htmlFor="name">Nome Completo</label>
                 <Input className="w-2/3 mr-4" type="text" id="name" name="name" value={formData.name} onChange={handleChange} required/>
@@ -119,16 +119,15 @@ const CustomerForm = () => {
                 <label className="w-2/3 mr-4" htmlFor="status">Estado Civil</label>
                 <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" name="status" id="status" value={formData.status} onChange={handleChange} required>
                         <option value="">Selecione uma opção</option> 
-                        <option value="Solteiro">Solteiro</option>
-                        <option value="Casado">Casado</option>
-                        <option value="Divorciado">Divorciado</option>
-                        <option value="Viúvo">Viúvo</option>
-                        <option value="Outro">Outro</option>
+                        <option value="Solteiro(a)">Solteiro(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viúvo(a)">Viúvo(a)</option>
                 </select>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="birth">
-                    Data de Nascimento <span className="text-xs font-thin italic">(DD/MM/YY)</span>
+                    Data de Nascimento
                 </label>
                 <Input type="date" className="w-2/3 ml-4" id="birth" name="birth" value={formData.birth} onChange={handleChange} required/>
             </div>
@@ -149,8 +148,8 @@ const CustomerForm = () => {
                 <Input className="w-2/3 ml-4" type="text" id="complement" name="complement" value={formData.complement} onChange={handleChange} required/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
-                <label className="w-2/3 mr-4" htmlFor="state">Estado</label>
-                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" name="state" id="state" value={formData.state} onChange={handleChange} required>
+                <label className="w-2/3 mr-4" htmlFor="district">Estado</label>
+                <select className="w-2/3 mr-4 h-9 rounded-md px-4 bg-white border" name="district" id="district" value={formData.district} onChange={handleChange} required>
                         <option value="">Selecione uma opção</option>
                         <option value="SP">SP</option>
                         <option value="RJ">RJ</option>
