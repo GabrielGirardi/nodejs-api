@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+
 import Swal from 'sweetalert2'
+import { FaSpinner } from "react-icons/fa"
 
 const CustomerEdit = () => {
     const [customers, setCustomers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchData();
@@ -12,8 +15,8 @@ const CustomerEdit = () => {
     const fetchData = async () => {
         try {
             const response = await axios.get('http://localhost:3000/');
-
             setCustomers(response.data);
+            setLoading(false);
         } catch (error) {
             console.log(error);
 
@@ -23,6 +26,8 @@ const CustomerEdit = () => {
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+
+            setLoading(false);
         }
     };
 
@@ -52,7 +57,6 @@ const CustomerEdit = () => {
                     <input type="text" id="addressEdit" value="${customer.address}" class="swal2-input" placeholder="Endereço" required>
                     <input type="number" id="numberEdit" value="${customer.number}" class="swal2-input" placeholder="Número">
                     <input type="text" id="complementEdit" value="${customer.complement}" class="swal2-input" placeholder="Complemento" required>
-                    <input type="text" id="districtEdit" value="${customer.district}" class="swal2-input" placeholder="Estado" required>
                     <select id="districtEdit" class="swal2-select" required>
                         <option value="${customer.district}">${customer.district} - Anterior</option>
                         <option value="SP">SP</option>
@@ -90,6 +94,8 @@ const CustomerEdit = () => {
         });
 
         if (formValues) {
+            setLoading(true);
+
             try {
                 await axios.put(`http://localhost:3000/${customer._id}`, formValues);
 
@@ -100,7 +106,8 @@ const CustomerEdit = () => {
                     confirmButtonText: 'OK'
                 });
                 
-                fetchData(); 
+                fetchData();
+                setLoading(false); 
             } catch (error) {
                 console.log(error);
 
@@ -110,6 +117,7 @@ const CustomerEdit = () => {
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
+                setLoading(false);
             }
         } else {
             Swal.fire({
@@ -168,6 +176,10 @@ const CustomerEdit = () => {
                     ))}
                 </tbody>
             </table>
+            <div className={`bg-gray-300 opacity-50 text-black flex items-center justify-center w-full p-2 rounded-md mt-2 ${loading == true ? 'flex' : 'hidden'}`}>        
+                <FaSpinner className="animate-spin h-5 w-5 mr-3" />
+                Carregando...
+            </div>
         </div>
     );
 };
