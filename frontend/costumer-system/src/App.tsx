@@ -7,6 +7,7 @@ import CustomerEdit from './components/CustomerEdit'
 import { Button } from "@/components/ui/button"
 import { FaUserPlus } from "react-icons/fa"
 import DownloadApp from './assets/download-app.svg'
+import errorGifCat from './assets/9195-error.gif'
 import Logo from './assets/logo.svg'
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
 
     return (
         <>
-            <div className="flex min-w-screen min-h-screen">
+            <div className="hidden min-w-screen min-h-screen md:flex">
                 <section className={`flex flex-col min-h-full gap-4 bg-gradient-to-b from-gray-800 to-black border-r border-black p-4 shadow-lg shadow-gray-800/80 ${showTable ? '2xl:w-2/3 w-full' : 'w-2/5'}`}>
                     <div className="flex justify-end w-full h-18 gap-2">
                         {showTable && <Button className="bg-white text-black text-sm 2xl:text-md transition duration-100 ease-in-out hover:bg-gray-200" onClick={() => setShowTable(false)}>Fechar</Button>}
@@ -36,13 +37,13 @@ function App() {
 
                 <section className={`flex flex-col items-center gap-2 flex-wrap min-h-full  bg-slate-200 ${showTable ? 'xl:w-1/3 2xl:flex hidden' : 'w-full'}`}>
                     <div className="flex w-full justify-between items-center bg-gradient-to-b from-gray-100 to-white p-4 shadow text-md">
-                        <div className="flex items-center gap-2 font-bold">
-                            <FaUserPlus className="w-8 h-8"/>
+                        <div className="flex items-center gap-2 font-bold text-md">
+                            <FaUserPlus className="w-7 h-7"/>
                             <h3>Cadastro</h3>
                         </div>
                         
                         <div className="w-16 h-16 rounded-full  overflow-hidden flex items-center justify-center">
-                            <img src={Logo} alt="Logo" width={64} height={64}/>
+                            <img className="rounded-full border border-black" src={Logo} alt="Logo" width={64} height={64}/>
                         </div>
                     </div>
 
@@ -69,6 +70,13 @@ function App() {
                         </div>
                     </div>
                 </section>
+            </div>
+            <div className="flex flex-col gap-2 justify-center items-center w-full min-h-screen md:hidden"> 
+                <img className="w-fit h-fit" src={errorGifCat} alt="Device Error" title="Device Error"/>
+                <h2 className="text-lg">Ooops!</h2>
+                <p className="text-md text-center">Parece que você está tentando acessar a plataforma de um dispositivo mobile, tente novamente de um desktop ou tablet!</p>
+                <p className="text-center text-md font-bold">ou se preferir, baixe nosso App!</p>
+                <img className="mt-2" src={DownloadApp} alt="Download App" width={250} height={40}/>
             </div>
         </>
     )

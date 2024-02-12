@@ -104,7 +104,7 @@ const CustomerForm = () => {
         <form className="flex flex-wrap w-full text-sm" onSubmit={handleSubmit}>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
                 <label className="w-2/3 mr-4" htmlFor="name">Nome Completo</label>
-                <Input className="w-2/3 mr-4" type="text" id="name" name="name" value={formData.name} onChange={handleChange} required/>
+                <Input className="w-2/3 mr-4" type="text" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Gabriel Girardi..." required/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="gender">Gênero</label>
@@ -133,19 +133,19 @@ const CustomerForm = () => {
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
                 <label className="w-2/3 mr-4" htmlFor="cep">CEP</label>
-                <Input className="w-2/3 mr-4" type="text" id="cep" name="cep" value={formData.cep}  onChange={handleChange} required/>
+                <Input className="w-2/3 mr-4" type="text" id="cep" name="cep" value={formData.cep}  onChange={handleChange} placeholder="00000-000" required/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="address">Endereço</label>
-                <Input className="w-2/3 ml-4" type="text" id="address" name="address" value={formData.address} onChange={handleChange} required/>
+                <Input className="w-2/3 ml-4" type="text" id="address" name="address" value={formData.address} onChange={handleChange} placeholder="Estrada do exemplo.." required/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
                 <label className="w-2/3 mr-4" htmlFor="number">Número</label>
-                <Input className="w-2/3 mr-4" type="number" id="number" name="number" value={formData.number} onChange={handleChange}/>
+                <Input className="w-2/3 mr-4" type="number" id="number" name="number" value={formData.number} onChange={handleChange} placeholder="Caso não houver, deixe em branco"/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="complement">Complemento</label>
-                <Input className="w-2/3 ml-4" type="text" id="complement" name="complement" value={formData.complement} onChange={handleChange} required/>
+                <Input className="w-2/3 ml-4" type="text" id="complement" name="complement" value={formData.complement} onChange={handleChange} placeholder="Ap. Amarelo..." required/>
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-end">
                 <label className="w-2/3 mr-4" htmlFor="district">Estado</label>
@@ -160,7 +160,7 @@ const CustomerForm = () => {
             </div>
             <div className="flex flex-col w-1/2 gap-2 mb-2 items-start">
                 <label className="w-2/3 ml-4" htmlFor="city">Cidade</label>
-                <Input className="w-2/3 ml-4" type="text" id="city" name="city" value={formData.city} onChange={handleChange} required/>
+                <Input className="w-2/3 ml-4" type="text" id="city" name="city" value={formData.city} onChange={handleChange} placeholder="Rio do Sul..." required/>
             </div>
             
             <div className="flex justify-end w-1/2 mt-4">
