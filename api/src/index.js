@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect('mongodb+srv://devggirardi:MrWthRKqAO6QaKl4@api-node.hkdhyoa.mongodb.net/?retryWrites=true&w=majority');
+
 const port = 3000;
 
 const Customer = mongoose.model('Customer', {
@@ -15,9 +16,9 @@ const Customer = mongoose.model('Customer', {
     birth: { type: Date, required: true },
     gender: String,
     status: String,
-    cep: Number,
+    cep: String,
     address: String,
-    number: Number,
+    number: { type: Number, default: 0},
     complement: String,
     district: String,
     city: String

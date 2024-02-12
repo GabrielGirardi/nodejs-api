@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 import { MdDelete } from 'react-icons/md'
@@ -23,7 +23,7 @@ const CustomerTable = () => {
     const handleDelete = async (customerId?  : string) => {
         Swal.fire({
             title: 'Deseja mesmo exluir?',
-            text: `Você realmente deseja excluir o cliente ${customerId}?`,
+            text: `Você realmente deseja excluir o cliente para sempre? Esta ação não poderá ser desfeita!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -44,22 +44,33 @@ const CustomerTable = () => {
         });
     };
 
+    const formatDate = (dateString? : number) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString();
+
+        return `${day}/${month}/${year}`;
+    };
+
     return (
         <table className="border-collapse bg-white rounded-sm shadow">
-            <thead className="font-bold text-md">
+            <thead className="font-bold text-sm 2xl:text-md">
                 <tr>
                     <th className="p-2 text-start">Nome</th>
-                    <th className="p-2 text-start">ID</th>
-                    <th className="p-2 text-start">Ações</th>
+                    <th className="p-2 text-start">Nascimento</th>
+                    <th className="p-2 text-start">UF</th>
+                    <th className="p-2 text-center">Ações</th>
                 </tr>
             </thead>
-            <tbody className="text-sm">
+            <tbody className="text-xs 2xl:text-sm">
                 {data.map((item, index) => (
                     <tr className="border-b" key={index}>
-                        <td className="p-2 w-1/3 overflow-hidden h-12">{item.name}</td>
-                        <td className="p-2 w-1/3 h-12">{item._id}</td>
-                        <td className="p-2 w-full h-12 flex items-center justify-end gap-1">
-                            <MdDelete className="w-full h-1/2 cursor-pointer" onClick={() => handleDelete(item._id)} />
+                        <td className="p-2 w-3/12 overflow-hidden h-12">{item.name}</td>
+                        <td className="p-2 w-3/12 h-12">{formatDate(item.birth)}</td>
+                        <td className="p-2 w-3/12 h-12">{item.district}</td>
+                        <td className="p-2 w-3/12 h-12">
+                            <MdDelete className="mx-auto w-1/4 2xl:w-1/6 h-12 cursor-pointer hover:fill-red-500" onClick={() => handleDelete(item._id)} />
                         </td>
                     </tr>
                 ))}
