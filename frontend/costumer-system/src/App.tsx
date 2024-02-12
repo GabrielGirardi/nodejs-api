@@ -32,7 +32,7 @@ function App() {
                         </div>
                         { showTable ? <CustomerEdit/> : <CustomerTable/> }
                     </div>
-                    <span className="text-xs text-white"><b>Nota*:</b> Você pode deslizar para ver mais resultados</span>8
+                    <span className="text-xs text-white"><b>Nota*:</b> Você pode deslizar para ver mais resultados</span>
                 </section>
 
                 <section className={`flex flex-col items-center gap-2 flex-wrap min-h-full  bg-slate-200 ${showTable ? 'xl:w-1/3 2xl:flex hidden' : 'w-full'}`}>

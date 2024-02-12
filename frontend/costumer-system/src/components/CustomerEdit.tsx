@@ -71,7 +71,7 @@ const CustomerEdit = () => {
             focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: 'Salvar',
-            cancelButtonText: 'Cancel',
+            cancelButtonText: 'Cancelar',
             confirmButtonColor: '#38d500',
             cancelButtonColor: '#d33',
             preConfirm: () => {

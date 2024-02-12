@@ -2,7 +2,7 @@
 
 O Sistema de Gerenciamento de Clientes é uma aplicação web desenvolvida para auxiliar na organização e manipulação de dados de clientes. Este projeto consiste em uma aplicação frontend construída em React.js e uma API backend construída com Node.js e Express.js.
 
-![Customer System](customer-system.png)
+![Customer System](https://github.com/GabrielGirardi/nodejs-api/blob/main/preview.jpg?raw=true)
 
 ### Instalação
 
@@ -44,6 +44,10 @@ O Sistema de Gerenciamento de Clientes permite realizar as seguintes operações
 
 Este sistema oferece uma maneira intuitiva e eficiente de gerenciar os dados de clientes, permitindo uma organização e manipulação eficazes.
 
+### Design
+
+1. **Figma:** Utilizado para a montagem dos componentes e notificações, garantindo um melhor planejamento. Acesse o projeto [aqui](https://www.figma.com/file/unxpNudY4DByPf6e0OpYny/P%C3%A1gina-de-Cadastro---Design?type=design&node-id=0%3A1&mode=design&t=Y8cFYypN5uXaDV42-1)
+
 # Pontos de Melhoria:
 
 1. **Validações:** Implementar validações de entrada nos campos do formulário para garantir que os dados inseridos pelos usuários sejam corretos e consistentes. Isso pode incluir validações de formato, comprimento máximo, campos obrigatórios, entre outros.
@@ -57,5 +61,7 @@ Este sistema oferece uma maneira intuitiva e eficiente de gerenciar os dados de 
 5. **Divisão entre Tabelas de Dados Pessoais e Endereço:** Melhorar a estrutura do banco de dados e do modelo de dados da aplicação dividindo as informações de clientes em tabelas separadas para dados pessoais e endereço. Isso ajuda a manter a integridade dos dados e simplifica a manipulação e consulta das informações.
 
 Esses pontos de melhoria podem contribuir para tornar o sistema mais robusto, seguro e intuitivo, proporcionando uma melhor experiência para os usuários e facilitando a manutenção e evolução da aplicação no futuro.
+
+
 
 
